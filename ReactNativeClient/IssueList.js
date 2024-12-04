@@ -89,7 +89,7 @@ function IssueRow(props) {
         data={rowData}
         widthArr={width}
         style={styles.row}
-        textStyle={{ textAlign: 'center' }}
+        textStyle={styles.text}
       />
       {/****** Q2: Coding Ends here. ******/}  
       </>
