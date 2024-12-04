@@ -202,13 +202,23 @@ class BlackList extends React.Component {
     {   super();
         this.handleSubmit = this.handleSubmit.bind(this);
         /****** Q4: Start Coding here. Create State to hold inputs******/
+        this.state = { name: '' };
         /****** Q4: Code Ends here. ******/
     }
     /****** Q4: Start Coding here. Add functions to hold/set state input based on changes in TextInput******/
+    handleChange(value) {
+      this.setState({ name: value });
+  }
     /****** Q4: Code Ends here. ******/
 
     async handleSubmit() {
     /****** Q4: Start Coding here. Create an issue from state variables and issue a query. Also, clear input field in front-end******/
+    const { name } = this.state;
+      const mutation = `mutation blacklist($name: String!) {
+        blacklistTraveller(name: $name)
+      }`;
+      await graphQLFetch(mutation, { name });
+      this.setState({ name: '' });
     /****** Q4: Code Ends here. ******/
     }
 
@@ -216,6 +226,13 @@ class BlackList extends React.Component {
     return (
         <View>
         {/****** Q4: Start Coding here. Create TextInput field, populate state variables. Create a submit button, and on submit, trigger handleSubmit.*******/}
+        <TextInput
+            style={styles.input}
+            placeholder="Name to Blacklist"
+            value={this.state.name}
+            onChangeText={(value) => this.handleChange(value)}
+          />
+          <Button title="Blacklist" onPress={this.handleSubmit} />
         {/****** Q4: Code Ends here. ******/}
         </View>
     );
@@ -279,6 +296,7 @@ export default class IssueList extends React.Component {
     {/****** Q3: Code Ends here. ******/}
 
     {/****** Q4: Start Coding here. ******/}
+    <BlackList />
     {/****** Q4: Code Ends here. ******/}
     </>
       
