@@ -52,7 +52,7 @@ class IssueFilter extends React.Component {
       return (
         <>
         {/****** Q1: Start Coding here. ******/}
-
+        <Text>Issue Filter Component (Dummy)</Text>
         {/****** Q1: Code ends here ******/}
         </>
       );
@@ -197,6 +197,7 @@ export default class IssueList extends React.Component {
     return (
     <>
     {/****** Q1: Start Coding here. ******/}
+    <IssueFilter />
     {/****** Q1: Code ends here ******/}
 
 
