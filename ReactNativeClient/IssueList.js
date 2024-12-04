@@ -132,14 +132,32 @@ function IssueRow(props) {
       super();
       this.handleSubmit = this.handleSubmit.bind(this);
       /****** Q3: Start Coding here. Create State to hold inputs******/
+      this.state = {
+        title: '',
+        owner: '',
+        effort: '',
+        due: '',
+      };
       /****** Q3: Code Ends here. ******/
     }
   
     /****** Q3: Start Coding here. Add functions to hold/set state input based on changes in TextInput******/
+    handleChange(field, value) {
+      this.setState({ [field]: value });
+    }
     /****** Q3: Code Ends here. ******/
     
     handleSubmit() {
       /****** Q3: Start Coding here. Create an issue from state variables and call createIssue. Also, clear input field in front-end******/
+      const { title, owner, effort, due } = this.state;
+      const issue = {
+        title,
+        owner,
+        effort: parseInt(effort, 10),
+        due: due ? new Date(due) : null,
+      };
+      this.props.createIssue(issue);
+      this.setState({ title: '', owner: '', effort: '', due: '' });
       /****** Q3: Code Ends here. ******/
     }
   
@@ -147,6 +165,32 @@ function IssueRow(props) {
       return (
           <View>
           {/****** Q3: Start Coding here. Create TextInput field, populate state variables. Create a submit button, and on submit, trigger handleSubmit.*******/}
+          <TextInput
+              style={styles.input}
+              placeholder="Title"
+              value={this.state.title}
+              onChangeText={(value) => this.handleChange('title', value)}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Owner"
+              value={this.state.owner}
+              onChangeText={(value) => this.handleChange('owner', value)}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Effort"
+              keyboardType="numeric"
+              value={this.state.effort}
+              onChangeText={(value) => this.handleChange('effort', value)}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Due Date (YYYY-MM-DD)"
+              value={this.state.due}
+              onChangeText={(value) => this.handleChange('due', value)}
+            />
+            <Button title="Add Issue" onPress={this.handleSubmit} />
           {/****** Q3: Code Ends here. ******/}
           </View>
       );
@@ -231,6 +275,7 @@ export default class IssueList extends React.Component {
 
     
     {/****** Q3: Start Coding here. ******/}
+    <IssueAdd createIssue={this.createIssue} />
     {/****** Q3: Code Ends here. ******/}
 
     {/****** Q4: Start Coding here. ******/}
